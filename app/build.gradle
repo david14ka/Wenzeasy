@@ -1,0 +1,243 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
+try {
+    apply from: '../../../signing.gradle'
+} catch (ignored) {
+
+}
+
+//advancedVersioning {
+//    nameOptions {
+//        versionMajor 1
+//        versionMinor 10
+//        versionPatch 2
+//    }
+//
+//    codeOptions {
+//        versionCodeType org.moallemi.gradle.internal.VersionCodeType.AUTO_INCREMENT_ONE_STEP
+//        dependsOnTasks 'release' // defaultValue
+//    }
+//
+//    outputOptions {
+//        renameOutput true
+//        nameFormat '${appName}-${versionName}'
+//    }
+//}
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.wenzeasy"
+        minSdkVersion 19
+        targetSdkVersion 29
+        /*versionName advancedVersioning.versionName
+        versionCode advancedVersioning.versionCode
+        archivesBaseName = "${applicationId}-${versionName}"*/
+
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildTypes.each {
+
+                it.buildConfigField 'String', 'PROD_BASE_URL', PROD_BASE_URL
+                it.buildConfigField 'String', 'PAYMENT_BASE_URL', PAYMENT_BASE_URL
+                it.buildConfigField 'String', 'TEST_BASE_URL', TEST_BASE_URL
+                it.buildConfigField 'String', 'END_POINT', END_POINT
+                it.buildConfigField 'String', 'LOGIN_PARAM', LOGIN_PARAM
+                it.buildConfigField 'String', 'LOGCAT_TAG', LOGCAT_TAG
+                it.buildConfigField 'String', 'USER_PREFS', USER_PREFS
+                it.buildConfigField 'String', 'USER_SESSION', USER_SESSION
+                it.buildConfigField 'String', 'TAG', TAG
+                it.buildConfigField 'String', 'DEFAULT_SESSION_VALUE', DEFAULT_SESSION_VALUE
+
+            }
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        //incremental true
+        javaMaxHeapSize "4g"
+    }
+
+    packagingOptions {
+        exclude 'lib/x86_64/*.so'
+        exclude 'lib/arm64-v8a/*.so'
+        exclude 'lib/x86/*.so'
+        exclude 'lib/armeabi-v7a/*.so'
+        exclude 'lib/armeabi/*.so'
+        exclude 'lib/mips/*.so'
+        exclude '/*.properties'
+        exclude '/*.txt'
+        exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/*.version'
+        exclude 'META-INF/*.version'
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    implementation 'androidx.navigation:navigation-fragment:2.1.0'
+    implementation 'androidx.navigation:navigation-ui:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
+    implementation 'com.google.firebase:firebase-firestore:21.3.1'
+    implementation 'com.google.firebase:firebase-invites:17.0.0'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:19.0.2'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-core:17.2.1'
+
+    implementation('com.android.support:cardview-v7:27.1.1') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.android.support:recyclerview-v7:27.1.1') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.android.support:design:27.1.1') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+    implementation('com.google.code.gson:gson:2.8.2') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.squareup.retrofit2:retrofit:2.3.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.squareup.retrofit2:converter-gson:2.3.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.squareup.retrofit2:adapter-rxjava2:2.3.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+    implementation('io.reactivex.rxjava2:rxandroid:2.1.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('net.grandcentrix.thirtyinch:thirtyinch-rx2:0.9.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('io.reactivex.rxjava2:rxandroid:2.1.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+    implementation('net.grandcentrix.thirtyinch:thirtyinch:0.9.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+    implementation('com.mikepenz:materialdrawer:6.0.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.afollestad.material-dialogs:core:0.9.6.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.txusballesteros:FitChart:1.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.mikepenz:google-material-typeface:3.0.1.1.original@aar') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.mikepenz:fontawesome-typeface:5.0.6.0@aar') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.dlazaro66.qrcodereaderview:qrcodereaderview:2.0.3') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.github.paolorotolo:appintro:v4.2.3') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+
+    implementation('com.github.ismaeltoe:osms-android:1.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+    implementation('com.github.d-max:spots-dialog:0.7@aar') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+    implementation('com.pixplicity.easyprefs:library:1.9.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('com.paypal.sdk:paypal-android-sdk:2.14.1') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    implementation('org.alfonz:alfonz-utility:0.9.0') {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

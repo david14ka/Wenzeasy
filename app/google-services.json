@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "932876441961",
+    "firebase_url": "https://isicomtest-96b81.firebaseio.com",
+    "project_id": "isicomtest-96b81",
+    "storage_bucket": "isicomtest-96b81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932876441961:android:3570e23b6ba894a875c5f8",
+        "android_client_info": {
+          "package_name": "com.wenzeasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932876441961-qgmk5potdvbms1m85pbvam0smv8cd3rm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wenzeasy",
+            "certificate_hash": "9ea8f53b3282e51cfc13523f5c9b9cc18a335c50"
+          }
+        },
+        {
+          "client_id": "932876441961-ca4ti5lu0oh48d9rkn9b59blbmlnammi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPQsxpWBdhcnkwH2g0axJZ5qT4VNLbfp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932876441961-ca4ti5lu0oh48d9rkn9b59blbmlnammi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
