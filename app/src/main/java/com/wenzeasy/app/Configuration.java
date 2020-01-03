@@ -1,5 +1,7 @@
 package com.wenzeasy.app;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 
 import static com.wenzeasy.BuildConfig.PROD_BASE_URL;
@@ -16,6 +18,8 @@ public class Configuration {
     public static final String PAYPAL_CLIENT_ID_PRODUCTION = "AWrrGaLHvLfc7wnKLntVd11hDLZPAgovKU1kOxkN6g_Z4pyx3eeGTaQM92gc_SOSGWQb34KJK2N_a229";
 
     public static boolean VERSION_PRODUCTION = false;
+
+    public static DatabaseReference firebaseReferencce =  FirebaseDatabase.getInstance().getReference("Delivery");
 
     public static final int PAYPAL_REQUEST_CODE = 7171;
 

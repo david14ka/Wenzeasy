@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.wenzeasy.app.WenzeasyApplication;
+import com.wenzeasy.util.Constants;
 
 import org.alfonz.utility.NetworkUtility;
 
@@ -80,13 +81,13 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-    public static String createSmsService() {
+    public static String createNewSMS() {
 
         String token = createToken();
 
-        String msg = "Wenzeasy verification phone number is \n" + token;
+        String msg = "Your Wenzeasy verification phone number is: \nOPT- " + token;
 
-        Prefs.putString("osms_token",token);
+        Prefs.putString(Constants.OSMS_VERIFICATION_CODE, token);
 
         return msg;
     }

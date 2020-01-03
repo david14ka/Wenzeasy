@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wenzeasy.util.Constants;
 
+import java.lang.reflect.Modifier;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -24,12 +26,16 @@ public class OSmsApi {
 
     private static final String TAG = "SmsAuth";
 
-    public static void sendMessage(final String phoneNumber, final OnSmsAuthListener onSmsAuthListener){
+    public static void sendMessage(final String phoneNumber, String message, final OnSmsAuthListener onSmsAuthListener){
 
         final Osms osms = new Osms(Constants.CLIENT_ID, Constants.CLIENT_SECRET);
         osms.setAccessToken(Constants.ACCESS_TOKEN);
 
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        final Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .setLenient().excludeFieldsWithModifiers(Modifier.FINAL)
+                .setLenient().excludeFieldsWithModifiers(Modifier.STATIC)
+                .create();
         CredentialsService credentialsService = osms.credentials();
 
         credentialsService.getAccessToken("client_credentials", new Callback<CredentialsEntity>() {
@@ -41,7 +47,7 @@ public class OSmsApi {
 
                 MessagingService messagingService = osms.messaging();
 
-                OutboundSMSTextMessage OUTBOUND_SMS_TEXT_MESSAGE = new OutboundSMSTextMessage(ServiceGenerator.createSmsService());
+                OutboundSMSTextMessage OUTBOUND_SMS_TEXT_MESSAGE = new OutboundSMSTextMessage(message);
 
                 OutboundSMSMessageRequest OUTBOUND_SMS_MESSAGE_REQUEST = new OutboundSMSMessageRequest(
                         "tel:"+phoneNumber,
@@ -64,6 +70,7 @@ public class OSmsApi {
                             @Override
                             public void failure(RetrofitError retrofitError) {
                                 Log.e(TAG, "failure: ", retrofitError);
+                                Log.e(TAG, "errorBody: "+ retrofitError.getBody());
                                 onSmsAuthListener.failure(retrofitError.getMessage(),retrofitError);
                             }
                         }
@@ -74,7 +81,9 @@ public class OSmsApi {
             public void failure(RetrofitError retrofitError) {
                 //accessTokenView.setText(retrofitError.getMessage());
                 Log.e(TAG, retrofitError.getMessage());
+                Log.e(TAG+" body", retrofitError.getResponse().getBody().toString());
                 Log.e(TAG, "failure credential: ",retrofitError);
+                onSmsAuthListener.failure(retrofitError.getMessage(),retrofitError);
             }
         });
     }

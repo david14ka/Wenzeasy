@@ -3,12 +3,15 @@ package com.wenzeasy.app;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Random;
 
 public class SecurePassword {
 
     public static void main(String[] args) {
-        System.out.println(encrypt("123"));
-        System.out.println(decrypt("123","149f04acc4da94230a0f37c15175f2f964c5cf6e"));
+        //System.out.println(encrypt("123"));
+        //System.out.println(decrypt("123","149f04acc4da94230a0f37c15175f2f964c5cf6e"));
+
+        System.out.println(encrypt(createToken()));
 
     }
 
@@ -62,6 +65,10 @@ public class SecurePassword {
         sr.nextBytes(salt);
         salt = new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
         return salt;
+    }
+
+    public static String createToken() {
+        return String.valueOf(new Random().nextInt((99999 - 10000) + 1) + 10000);
     }
 }
  

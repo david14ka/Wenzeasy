@@ -26,4 +26,10 @@ public interface LoginView extends BaseView {
 
     @CallOnMainThread
     void onFinish();
+
+    @CallOnMainThread
+    void onLoginSuccess();
+
+    @CallOnMainThread
+    void onPhoneNumberVerified();
 }
